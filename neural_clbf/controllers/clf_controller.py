@@ -28,9 +28,11 @@ class CLFController(Controller):
         scenarios: ScenarioList,
         experiment_suite: ExperimentSuite,
         clf_lambda: float = 1.0,
+        # clf_lambda: float = 0.1,
         clf_relaxation_penalty: float = 50.0,
         controller_period: float = 0.01,
-        disable_gurobi: bool = False,
+        # disable_gurobi: bool = False,
+        disable_gurobi: bool = True,
     ):
         """Initialize the controller.
 
@@ -354,6 +356,11 @@ class CLFController(Controller):
             *params,
             solver_args={"max_iters": 1000},
         )
+
+        # result = self.differentiable_qp_solver(
+        #     *params,
+        #     solver_args={"max_iters": 5000},
+        # )
 
         # Extract the results
         u_result = result[0]

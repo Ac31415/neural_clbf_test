@@ -121,7 +121,8 @@ def main(args):
         args,
         logger=tb_logger,
         reload_dataloaders_every_epoch=True,
-        max_epochs=51,
+        # max_epochs=51,
+        max_epochs=2,
     )
 
     # Train

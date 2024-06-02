@@ -899,6 +899,27 @@ class Trainer(nn.Module):
             loss = F.relu(eps - min_eig_A)
 
         return loss.mean()
+    
+    def calculate_path_length(self, x_coords, y_coords):
+        # Ensure the arrays are numpy arrays
+        x_coords = np.array(x_coords).flatten()
+        y_coords = np.array(y_coords).flatten()
+
+        # print(x_coords, y_coords)
+
+        # Calculate the differences between consecutive points
+        dx = np.diff(x_coords)
+        dy = np.diff(y_coords)
+
+        # print(dx, dy)
+
+        # Calculate the distance between each point
+        distances = np.sqrt(dx**2 + dy**2)
+
+        # Sum the distances to get the total path length
+        path_length = np.sum(distances)
+
+        return path_length
 
     def run_training(
         self,
@@ -1116,6 +1137,8 @@ class Trainer(nn.Module):
                     ax.set_ylabel(f"Control {control_idx}")
                     ax.legend()
 
+                    # print(u_sim[:, 1:, control_idx].T.cpu().detach().numpy())
+
                     # Save the figure
                     self.writer.add_figure(
                         f"Simulated Control Trajectory/Control {control_idx}",
@@ -1160,6 +1183,29 @@ class Trainer(nn.Module):
                 self.writer.add_figure(
                     "Phase Plane",
                     fig,
+                    self.global_steps,
+                )
+
+                
+
+                path_length_ref = self.calculate_path_length(x_ref_sim[:, :, 0].T.cpu().detach().numpy(), x_ref_sim[:, :, 1].T.cpu().detach().numpy())
+                path_length = self.calculate_path_length(x_sim[:, :, 0].T.cpu().detach().numpy(), x_sim[:, :, 1].T.cpu().detach().numpy())
+
+                # print(path_length_ref)
+                # print(path_length)
+
+                # path_length_ref = self.calculate_path_length(x_ref_sim[:, :, 0].T.cpu().detach(), x_ref_sim[:, :, 1].T.cpu().detach())
+                # path_length = self.calculate_path_length(x_sim[:, :, 0].T.cpu().detach(), x_sim[:, :, 1].T.cpu().detach())
+
+                self.writer.add_scalar(
+                    "Ref Path Length",
+                    path_length_ref,
+                    self.global_steps,
+                )
+
+                self.writer.add_scalar(
+                    "Actual Path Length",
+                    path_length,
                     self.global_steps,
                 )
 
