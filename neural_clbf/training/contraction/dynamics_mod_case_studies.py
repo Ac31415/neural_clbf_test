@@ -108,6 +108,45 @@ def f_turtlebot(x: torch.Tensor, u: torch.Tensor) -> torch.Tensor:
     return xdot
 
 
+# def f_turtlebot(x: torch.Tensor, cart_x: torch.Tensor, u: torch.Tensor) -> torch.Tensor:
+#     # Convenience: define indices for state and controls
+#     PXi, PYi, THETAi, Vi, OMEGAi, Xi, Yi = (0, 1, 2, 0, 1, 0, 1)
+
+#     # Get state variables and controls
+#     theta = x[:, THETAi]
+#     v = u[:, Vi]
+#     omega = u[:, OMEGAi]
+
+#     # Construct the derivatives tensor
+#     xdot = torch.zeros_like(x)
+#     xdot[:, PXi] = v * torch.cos(theta)
+#     xdot[:, PYi] = v * torch.sin(theta)
+#     xdot[:, THETAi] = omega
+
+#     cart_xdot = torch.zeros_like(cart_x)
+#     cart_xdot[:, Xi] = v * torch.cos(theta)
+#     cart_xdot[:, Yi] = v * torch.sin(theta)
+
+#     return xdot, cart_xdot
+
+
+# def cart_f_turtlebot(x: torch.Tensor, cart_x: torch.Tensor, u: torch.Tensor) -> torch.Tensor:
+#     # Convenience: define indices for state and controls
+#     PXi, PYi, THETAi, Vi, OMEGAi, Xi, Yi = (0, 1, 2, 0, 1, 0, 1)
+
+#     # Get state variables and controls
+#     theta = x[:, THETAi]
+#     v = u[:, Vi]
+#     omega = u[:, OMEGAi]
+
+#     # Construct the derivatives tensor
+#     cart_xdot = torch.zeros_like(cart_x)
+#     cart_xdot[:, Xi] = v * torch.cos(theta)
+#     cart_xdot[:, Yi] = v * torch.sin(theta)
+
+#     return cart_xdot
+
+
 def AB_turtlebot(x: torch.Tensor, u: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
     # A is defined as df/dx (the Jacobian of f with respect to x)
     # Convenience: define indices for state and controls
