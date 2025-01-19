@@ -8,11 +8,11 @@ import seaborn as sns
 import torch
 import tqdm
 
-from neural_clbf.experiments import Experiment
+from neural_clbf.experiments_mps import Experiment
 from neural_clbf.systems import ObservableSystem  # noqa
 
 if TYPE_CHECKING:
-    from neural_clbf.controllers import Controller, NeuralObsBFController  # noqa
+    from neural_clbf.controllers_mps import Controller, NeuralObsBFController  # noqa
 
 
 class BFContourExperiment(Experiment):

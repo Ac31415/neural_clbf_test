@@ -1,0 +1,16 @@
+ 1765  conda activate neural_clbf
+ 1766  tensorboard --logdir logs
+ 1767  conda activate neural_clbf
+ 1768  tensorboard --logdir logs
+ 1769  tensorboard --logdir logs
+ 1770  tensorboard --logdir logs
+ 1771  tensorboard --logdir logs
+ 1772  tensorboard --logdir logs
+ 1773  tensorboard --logdir logs
+ 1774  pip show protobuf
+ 1775  pip install protobuf==4.25
+ 1776  pip install protobuf==4.25
+ 1777  tensorboard --logdir logs
+ 1778  tensorboard --logdir logs
+ 1779  brew install mariadb
+ 1780  tensorboard --logdir logs

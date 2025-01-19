@@ -242,12 +242,30 @@ class EpisodicDataModule(pl.LightningDataModule):
         """Setup -- nothing to do here"""
         pass
 
+    # def train_dataloader(self):
+    #     """Make the DataLoader for training data"""
+    #     return DataLoader(
+    #         self.training_data,
+    #         batch_size=self.batch_size,
+    #         num_workers=4,
+    #     )
+
+    # def val_dataloader(self):
+    #     """Make the DataLoader for validation data"""
+    #     return DataLoader(
+    #         self.validation_data,
+    #         batch_size=self.batch_size,
+    #         num_workers=4,
+    #     )
+    
+
     def train_dataloader(self):
         """Make the DataLoader for training data"""
         return DataLoader(
             self.training_data,
             batch_size=self.batch_size,
-            num_workers=4,
+            num_workers=8,
+            persistent_workers=True,
         )
 
     def val_dataloader(self):
@@ -255,5 +273,6 @@ class EpisodicDataModule(pl.LightningDataModule):
         return DataLoader(
             self.validation_data,
             batch_size=self.batch_size,
-            num_workers=4,
+            num_workers=8,
+            persistent_workers=True,
         )

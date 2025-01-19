@@ -6,15 +6,24 @@ import pytorch_lightning as pl
 from pytorch_lightning import loggers as pl_loggers
 import numpy as np
 
+
+
+
+import lightning as L
+
+
+
+
 # from shapely.geometry import box
 
-from neural_clbf.controllers import NeuralObsBFController
+# from neural_clbf.controllers import NeuralObsBFController
+from neural_clbf.controllers_mps import NeuralObsBFControllerMPS
 from neural_clbf.datamodules.episodic_datamodule import (
     EpisodicDataModule,
 )
 from neural_clbf.systems import TurtleBot2D
 from neural_clbf.systems.planar_lidar_system import Scene
-from neural_clbf.experiments import (
+from neural_clbf.experiments_mps import (
     ExperimentSuite,
     BFContourExperiment,
     # LFContourExperiment,
@@ -160,7 +169,7 @@ def main(args):
     )
 
     # Initialize the controller
-    bf_controller = NeuralObsBFController(
+    bf_controller = NeuralObsBFControllerMPS(
         dynamics_model,
         data_module,
         experiment_suite=experiment_suite,
@@ -181,16 +190,35 @@ def main(args):
         "logs/lidar_turtlebot",
         name=f"commit_{current_git_hash()}",
     )
-    trainer = pl.Trainer.from_argparse_args(
-        args,
+
+
+
+    # parser = ArgumentParser()
+
+    # # parser = pl.Trainer.add_argparse_args(parser)
+    # parser.add_argument("--logger", type=str, default="cuda")
+
+    # args = parser.parse_args()
+
+
+
+    # trainer = pl.Trainer.from_argparse_args(
+    #     args,
+    #     logger=tb_logger,
+    #     reload_dataloaders_every_epoch=True,
+    #     check_val_every_n_epoch=1,
+    #     stochastic_weight_avg=True,
+    #     # track_grad_norm=2,
+    #     max_epochs=400,
+    #     accelerator="mps", 
+    #     devices=1,
+    # )
+
+    # trainer = L.Trainer(**vars(args))
+    trainer = L.Trainer(
+        **vars(args),
         logger=tb_logger,
-        reload_dataloaders_every_epoch=True,
-        check_val_every_n_epoch=1,
-        stochastic_weight_avg=True,
         # track_grad_norm=2,
-        max_epochs=400,
-        # accelerator="mps", 
-        # devices=1,
     )
 
     # Train
@@ -199,8 +227,17 @@ def main(args):
 
 
 if __name__ == "__main__":
+
     parser = ArgumentParser()
-    parser = pl.Trainer.add_argparse_args(parser)
+
+    # parser = pl.Trainer.add_argparse_args(parser)
+    # parser.add_argument("--reload_dataloaders_every_epoch", type=bool, default=True)
+    parser.add_argument("--check_val_every_n_epoch", type=int, default=1)
+    # parser.add_argument("--stochastic_weight_avg", type=bool, default=True)
+    parser.add_argument("--max_epochs", type=int, default=400)
+    parser.add_argument("--accelerator", type=str, default="mps")
+    parser.add_argument("--devices", type=int, default=1)
+
     args = parser.parse_args()
 
     main(args)
