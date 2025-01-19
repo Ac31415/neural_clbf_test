@@ -20,11 +20,11 @@ currentdir = os.path.dirname(
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-from dynamics import (  # noqa
+from dynamics_mod_case_studies import (  # noqa
     f_turtlebot,
     f_quad6d,
 )
-from simulation import simulate, generate_random_reference  # noqa
+from simulation_mod_case_studies import simulate, generate_random_reference  # noqa
 
 
 def turtlebot_mpc_casadi_torch(

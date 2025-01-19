@@ -24,13 +24,13 @@ sys.path.insert(0, parentdir)
 
 # from trainer import Trainer  # noqa
 from trainer_mod_case_studies import Trainer  # noqa
-from dynamics import (  # noqa
+from dynamics_mod_case_studies import (  # noqa
     f_damped_integrator,
     AB_damped_integrator,
     f_turtlebot,
     AB_turtlebot,
 )
-from nonlinear_mpc_controller import turtlebot_mpc_casadi  # noqa
+from nonlinear_mpc_controller_mod_case_studies import turtlebot_mpc_casadi  # noqa
 
 # from simulation import (
 #     simulate,

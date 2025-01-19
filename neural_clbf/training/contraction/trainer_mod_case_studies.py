@@ -21,7 +21,7 @@ import math
 import random
 
 
-from simulation import (
+from simulation_mod_case_studies import (
     simulate,
     simulate_follower,
     simulate_multi_agent,
@@ -33,7 +33,7 @@ from simulation import (
     Follower,
 )
 
-from nonlinear_mpc_controller import turtlebot_mpc_casadi_torch  # noqa
+from nonlinear_mpc_controller_mod_case_studies import turtlebot_mpc_casadi_torch  # noqa
 
 
 
